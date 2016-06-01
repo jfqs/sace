@@ -1,0 +1,22 @@
+<h2 class="text-center text-bold text-light mt-4x"><%= t('.sign_in') %></h2>
+<div class="well row pt-2x pb-3x bk-light">
+  <div class="col-md-8 col-md-offset-2">
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'mt'}) do |f| %>
+      <% if flash[:notice] %>
+        <div class="notice"><%= flash[:notice] %></div>
+      <% end %>
+      <% if flash[:error] %>
+        <div class="error"><%= flash[:error] %></div>
+      <% end %>
+
+      <%=f.input :email, autofocus: true, placeholder: "Correo electronico", input_html: {class: "mb",autocomplete: "off"}, wrapper: :devise_control%>
+      <%=f.input :password, placeholder: "Contraseña", input_html: {class: "mb"}, wrapper: :devise_control %>
+
+      <%=button_tag t('.sign_in'), type: "submit", class: "btn btn-primary btn-block"%>
+
+    <% end %>
+  </div>
+</div>
+<div class="text-center text-light">
+  <%= link_to t("devise.shared.links.forgot_your_password"), new_password_path(resource_name), class: 'text-light' %>
+</div>

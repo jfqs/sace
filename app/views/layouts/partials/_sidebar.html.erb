@@ -1,0 +1,89 @@
+<nav class="ts-sidebar">
+  <ul class="ts-sidebar-menu">
+    <li class="ts-label"></li>
+    <li>
+      <%= link_to "/" do%>
+        <i class="fa fa-home"></i> Inicio
+      <%end%>
+    </li>
+    <!--nuevo - inicio-->
+  <%if policy(Student).create? and policy(Enrollment).update?%>
+    <li class="ts-label">Alumno</li>
+    <li>
+    <%= link_to new_student_path do%>
+      <i class="fa fa-child"></i> Registrar alumno
+    <%end%>
+    </li>
+    <li>
+    <%= link_to enrollments_path do%>
+      <i class="fa fa-check-square-o"></i> Reservar matricula
+    <%end%>
+    </li>
+  <%end%>
+  <%if policy(PaymentType).create? or policy(Payment).update?%>
+    <li class="ts-label">Pagos</li>
+    <%if policy(PaymentType).create? and policy(Payment).assign?%>
+    <li>
+    <%= link_to new_payment_type_path do%>
+      <i class="fa fa-list"></i> Registrar tipo pago
+    <%end%>
+    </li>
+    <li>
+    <%= link_to payments_assign_path do%>
+      <i class="fa fa-money"></i> Registrar concepto de pago
+    <%end%>
+    </li>
+    <%end%>
+    <%if policy(Payment).pending?%>
+    <li>
+    <%= link_to payments_pending_path do%>
+      <i class="fa fa-dollar"></i> Pagos pendientes
+    <%end%>
+    </li>
+    <%end%>
+  <%end%>
+  <%if policy(Student).index? or policy(Payment).index? or policy(StudentGrade).report_card?%>
+    <li class="ts-label">Reportes</li>
+    <%if policy(Student).index?%>
+    <li>
+    <%= link_to students_path do%>
+      <i class="fa fa-user"></i> Reporte alumnos
+    <%end%>
+    </li>
+    <%end%>
+    <%if policy(Payment).index?%>
+    <li>
+    <%= link_to payments_path do%>
+      <i class="fa fa-list-alt"></i> Reporte pagos
+    <%end%>
+    </li>
+    <%end%>
+    <%if policy(StudentGrade).report_card?%>
+    <li>
+    <%= link_to student_grades_report_card_path do%>
+      <i class="fa fa-graduation-cap"></i> Reporte notas
+    <%end%>
+    </li>
+    <%end%>
+  <%end%>
+  <%if policy(StudentGrade).create?%>
+    <li class="ts-label">Notas</li>
+    <li>
+    <%= link_to student_grades_course_grades_path do%>
+      <i class="fa fa-sticky-note-o"></i> Registrar notas
+    <%end%>
+    </li>
+  <%end%>
+  <%if policy(:maintenance).upload?%>
+    <li class="ts-label">Mantenimiento</li>
+    <li>
+    <%= link_to maintenances_upload_path do%>
+      <i class="fa fa-columns"></i> Carga de datos
+    <%end%>
+    </li>
+  <%end%>
+    <!--fin-->
+    <!-- Account from above -->
+    <%= render 'layouts/partials/profile'%>
+  </ul>
+</nav>

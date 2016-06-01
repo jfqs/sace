@@ -1,0 +1,16 @@
+<ul class="ts-profile-nav">
+  <li>
+    <a href="#"><%= Time.now.to_formatted_s(:short) %></a>
+  </li>
+  <li class="ts-account">
+    <a href="#" style="width:250px;">
+      <%=image_tag('img/ts-avatar.jpg', class: 'ts-avatar hidden-side')%>
+      <%=current_user.email%> <i class="fa fa-angle-down hidden-side"></i>
+    </a>
+    <ul>
+      <li><a href="#">Mi cuenta</a></li>
+      <li><a href="#">Editar cuenta</a></li>
+      <li><%= link_to "Cerrar sesion", destroy_user_session_path, :method => :delete %></li>
+    </ul>
+  </li>
+</ul>

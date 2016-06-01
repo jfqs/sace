@@ -1,0 +1,3 @@
+class SecretaryPolicy < ApplicationPolicy
+
+end
