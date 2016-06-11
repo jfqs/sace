@@ -8,5 +8,4 @@ class ApplicationController < ActionController::Base
   #after_action :verify_authorized, unless: :devise_controller?
 
   after_action :verify_authorized, unless: :devise_controller?
-
 end
