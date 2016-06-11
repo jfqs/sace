@@ -1,14 +1,18 @@
 class PaymentPolicy < ApplicationPolicy
   def index?
-    user.role == "Guardian"
+    user.role == "Guardian" or user.admin?
   end
 
   def create?
-    user.role == "Secretary"
+    user.role == "Secretary" or user.admin?
+  end
+
+  def new_assign?
+    create?
   end
 
   def assign?
-    create?
+    new_assign?
   end
 
   def pending?
@@ -16,6 +20,6 @@ class PaymentPolicy < ApplicationPolicy
   end
 
   def update?
-    user.role == "Guardian"
+    user.role == "Guardian" or user.admin?
   end
 end

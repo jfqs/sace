@@ -1,6 +1,6 @@
 class StudentPolicy < ApplicationPolicy
   def index?
-    user.role == "Secretary"
+    user.role == "Secretary" or user.admin?
   end
 
   def new?
@@ -8,6 +8,18 @@ class StudentPolicy < ApplicationPolicy
   end
 
   def create?
-    user.role == "Secretary"
+    user.role == "Secretary" or user.admin?
+  end
+
+  def edit?
+    update?
+  end
+
+  def update?
+    user.role == "Secretary" or user.admin?
+  end
+
+  def search?
+    user.role == "Secretary" or user.admin?
   end
 end

@@ -4,6 +4,6 @@ class PaymentTypePolicy < ApplicationPolicy
   end
 
   def create?
-    user.role == "Secretary"
+    user.role == "Secretary" or user.admin?
   end
 end
