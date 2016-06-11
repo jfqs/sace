@@ -10,7 +10,7 @@
           <div class="panel-heading">Cursos</div>
           <div class="panel-body">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#home" data-toggle="tab">Matematica - 3 A Primaria</a></li>
+              <li class="active"><a href="#home" data-toggle="tab"><%= @curso.course.name%> - 3 A Primaria</a></li>
               <li class=""><a href="#profile" data-toggle="tab">Matematica - 5 B Primaria</a></li>
             </ul>
             <br>
@@ -21,21 +21,33 @@
                     <tr>
                       <th>#</th>
                       <th>Alumno</th>
-                      <th>Tarea 1</th>
-                      <th>Tarea 2</th>
-                      <th>Tarea 3</th>
-                      <th>Tarea 4</th>
-                      <th>Examen oral</th>
-                      <th>Examen Bimestral</th>
+                      <% @grade_types.each do |gt|%>
+                      <th><%= gt.name%></th>
+                      <%end%>
                       <th>Promedio</th>
                     </tr>
                   </thead>
                   <tbody>
+                  <% @curso.section.students.each_with_index do |student,i|%>
                     <tr>
+                      <td><%= i+1 %></td>
+                      <td><%= student.full_name%></td>
+                      <% @grade_types.each do |gt|%>
+                      <td>
+                        <div class="col-xs-3">
+                          <%= text_field_tag 'nota', student.student_grades.where(period_id: 7, programmed_section_id: @curso.id, grade_type_id: gt.id).first.score, class: 'form-control input-sm'%>
+                        </div>
+                      </td>
+                      <%end%>
+                      <!-- <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
+                      <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
+                      <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td> -->
+                      <td><%= StudentGrade.where(period_id: 7, student_id: student.id, programmed_section_id: @curso.id).average(:score) %></td>
+                    </tr>
+                  <%end%>
+<!--                     <tr>
                       <td>1</td>
                       <td>Apellido, Nombre</td>
-                      <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
-                      <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
                       <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
                       <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
                       <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
@@ -49,15 +61,11 @@
                       <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
                       <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
                       <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
-                      <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
-                      <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
                       <td></td>
                     </tr>
                     <tr>
                       <td>3</td>
                       <td>Apellido, Nombre</td>
-                      <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
-                      <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
                       <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
                       <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
                       <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
@@ -71,10 +79,8 @@
                       <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
                       <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
                       <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
-                      <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
-                      <td><div class="col-xs-3"><input type="text" class="form-control input-sm"></div></td>
                       <td></td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
                 <button class="btn btn-primary" type="submit">Guardar</button>

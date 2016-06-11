@@ -2,8 +2,9 @@
   <div class="col-md-12">
     <h2 class="page-title">Reporte de pagos</h2>
     <!-- Zero Configuration Table -->
+    <% @guardian.students.each do |student|%>
     <div class="panel panel-default">
-      <div class="panel-heading">Pagos</div>
+      <div class="panel-heading">Pagos hechos para : <%= student.full_name -%></div>
       <div class="panel-body">
         <div class="dataTables_wrapper form-inline dt-bootstrap">
           <div class="row">
@@ -18,31 +19,14 @@
                   </tr>
                 </thead>
                 <tbody>
+                <% student.payments.where('op_code is not null').each do |payment|%>
                   <tr class="odd" role="row">
-                    <td>Matricula</td>
-                    <td>S/. 200.00</td>
-                    <td>12312323234</td>
-                    <td>12/03/16</td>
+                    <td><%= payment.payment_type.name%></td>
+                    <td><%= payment.payment_type.amount%></td>
+                    <td><%= payment.op_code%></td>
+                    <td><%= payment.op_date%></td>
                   </tr>
-                  <tr class="odd" role="row">
-                    <td>Mensualidad marzo</td>
-                    <td>S/. 400.00</td>
-                    <td>123123984</td>
-                    <td>12/03/16</td>
-                  </tr>
-                  <tr class="odd" role="row">
-                    <td>Mensualidad abril</td>
-                    <td>S/. 400.00</td>
-                    <td>123123984</td>
-                    <td>12/03/16</td>
-                  </tr>
-                  <tr class="odd" role="row">
-                    <td>Mensualidad mayo</td>
-                    <td>S/. 400.00</td>
-                    <td>123123984</td>
-                    <td>12/03/16</td>
-                  </tr>
-
+                <%end%>
                 </tbody>
               </table>
             </div>
@@ -50,5 +34,6 @@
         </div>
       </div>
     </div>
+    <%end%>
   </div>
 </div>

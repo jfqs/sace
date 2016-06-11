@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="headingTwo">
+    <h4 class="panel-title">
+      <a class="collapsed" role="button" aria-controls="collapseTwo">
+        Datos del alumno
+      </a>
+    </h4>
+  </div>
+  <div id="collapseTwo" class="panel-collapse" aria-labelledby="headingTwo">
+    <div class="panel-body">
+      <%= f.input :dni%>
+      <%= f.input :p_lastname %>
+      <%= f.input :m_lastname %>
+      <%= f.input :first_name %>
+      <%= f.input :email %>
+      <%= f.input :address%>
+      <%= f.input :phone%>
+      <%= f.hidden_field :_destroy %>
+      <div class="form-group">
+        <div class="col-sm-3">
+          <%= link_to "Eliminar", '#', class: "remove_fields btn btn-sm btn-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

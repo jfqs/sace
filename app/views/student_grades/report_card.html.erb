@@ -2,8 +2,9 @@
   <div class="col-md-12">
     <h2 class="page-title">Reporte de notas</h2>
     <!-- Zero Configuration Table -->
+    <%@students.each do |student|%>
     <div class="panel panel-default">
-      <div class="panel-heading">Notas</div>
+      <div class="panel-heading">Notas de : <%= student.full_name%></div>
       <div class="panel-body">
         <div class="dataTables_wrapper form-inline dt-bootstrap">
           <div class="row">
@@ -22,15 +23,38 @@
                 <tfoot>
                   <tr>
                     <td>Promedio por bimestre</td>
-                    <td>10</td>
-                    <td>10</td>
-                    <td>10</td>
-                    <td>10</td>
-                    <td>10</td>
+                    <% @bimesters.each do |b|%>
+                    <td>
+                      <%= StudentGrade.where(period_id: b.id, student_id: student.id).average(:score)%>
+                    </td>
+                    <%end%>
+                    <td><%= StudentGrade.where(period_id: [7,8,9,10], student_id: student.id).average(:score)%></td>
                   </tr>
                 </tfoot>
                 <tbody>
+                <% student.sections.where("enrollments.period_id = 6").first.courses.each do |course|%>
                   <tr class="odd" role="row">
+                    <td><%= course.name%></td>
+                    <% @bimesters.each do |b|%>
+                    <td>
+                      <%= StudentGrade.where(period_id: b.id, student_id: student.id, programmed_section_id: 1).average(:score)%>
+                    </td>
+                    <%end%>
+                    <!-- <td>10</td>
+                    <td>10</td>
+                    <td>10</td>
+                    <td>10</td> -->
+                    <!-- <%# Period.current_bimesters.each do |b|%>
+                    <td>
+                      <%#= StudentGrade.where(period_id: b.id, student_id: student.id, programmed_section_id: 1).average(:score%>
+                    </td>
+                    <%#end%> -->
+                    <td>
+                      <%= StudentGrade.where(period_id: [7,8,9,10], student_id: student.id, programmed_section_id: 1).average(:score) %>
+                    </td>
+                  </tr>
+                <%end%>
+                  <!-- <tr class="odd" role="row">
                     <td>Matematica</td>
                     <td>10</td>
                     <td>10</td>
@@ -53,7 +77,7 @@
                     <td>10</td>
                     <td>10</td>
                     <td>10</td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
             </div>
@@ -61,5 +85,6 @@
         </div>
       </div>
     </div>
+    <%end%>
   </div>
 </div>

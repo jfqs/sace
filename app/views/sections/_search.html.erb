@@ -1,0 +1,3 @@
+<div id="level" class="col-sm-12">
+  <%= select_tag "section_id", options_from_collection_for_select(@sections, "id","name"), include_blank: "Seleccione sección", data: {remote: true, url: search_students_path}, class: "select form-control input-sm" %>
+</div>

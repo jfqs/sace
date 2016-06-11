@@ -6,3 +6,25 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">Tipos de pago</div>
+      <div class="panel-body">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+              <ul>
+              <% @payment_types.each do |pt|%>
+              <li><%= pt.name%> - S/. <%= pt.amount%></li>
+              <%end%>
+              </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

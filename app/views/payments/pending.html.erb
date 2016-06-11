@@ -2,8 +2,9 @@
   <div class="col-md-12">
     <h2 class="page-title">Pagos pendientes</h2>
     <!-- Zero Configuration Table -->
+    <% @guardian.students.each do |student|%>
     <div class="panel panel-default">
-      <div class="panel-heading">Pagos</div>
+      <div class="panel-heading">Pagos pendientes de : <%= student.full_name -%></div>
       <div class="panel-body">
         <div class="dataTables_wrapper form-inline dt-bootstrap">
           <div class="row">
@@ -13,31 +14,33 @@
                   <tr role="row">
                     <th style="width: 147px;" colspan="1" rowspan="1" class="sorting">Concepto</th>
                     <th style="width: 243px;" colspan="1" rowspan="1" class="sorting">Monto</th>
-                    <th style="width: 105px;" colspan="1" rowspan="1" class="sorting">Numero operacion</th>
+                    <th style="width: 105px;" colspan="1" rowspan="1" class="sorting"></th>
                   </tr>
                 </thead>
                 <tbody>
+                <% student.payments.where(op_code: nil).each do |payment|%>
                   <tr class="odd" role="row">
-                    <td>Mensualidad abril</td>
-                    <td>S/. 400.00</td>
-                    <td><input type="text" class="form-control input-sm"><button type="submit" class="btn btn-primary btn-sm">Pagar</button></td>
+                    <td><%= payment.payment_type.name%></td>
+                    <td><%= payment.payment_type.amount%></td>
+                    <td>
+                      <%= link_to "Pagar", edit_payment_path(payment), class: "btn btn-primary btn-sm", data: {toggle: "modal", target: "#myModal", remote: true} %></td>
                   </tr>
-                  <tr class="odd" role="row">
-                    <td>Mensualidad mayo</td>
-                    <td>S/. 400.00</td>
-                    <td><input type="text" class="form-control input-sm"><button type="submit" class="btn btn-primary btn-sm">Pagar</button></td>
-                  </tr>
-                  <tr class="odd" role="row">
-                    <td>Excursion</td>
-                    <td>S/. 100.00</td>
-                    <td><input type="text" class="form-control input-sm"><button type="submit" class="btn btn-primary btn-sm">Pagar</button></td>
-                  </tr>
+                <%end%>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <%end%>
+  </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
     </div>
   </div>
 </div>

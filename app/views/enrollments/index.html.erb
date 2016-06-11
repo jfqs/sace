@@ -7,42 +7,51 @@
       <div class="panel-body">
         <div class="dataTables_wrapper form-inline dt-bootstrap">
           <div class="row">
-          <div class="col-sm-6">
-            <form class="form-inline">
-              <div class="form-group">
-                <label for="exampleInputName2">Nombre</label>
-                <input type="text" class="form-control input-sm">
-              </div>
-              <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
-            </form></div>
+            <div class="col-sm-6">
+              <form class="form-inline" action="/enrollments">
+                <div class="form-group">
+                  <label for="exampleInputName2">D.N.I.</label>
+                  <input name="dni" type="text" class="form-control input-sm">
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+              </form>
+            </div>
           </div>
+          <div class="hr-dashed"></div>
           <div class="row">
             <div class="col-sm-12">
               <table style="width: 100%;" role="grid" class="display table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                   <tr role="row">
-                    <th style="width: 147px;" colspan="1" rowspan="1" class="sorting">DNI</th>
+                    <th style="width: 70px;" colspan="1" rowspan="1" class="sorting">DNI</th>
                     <th style="width: 243px;" colspan="1" rowspan="1" class="sorting">Alumno</th>
-                    <th style="width: 105px;" colspan="1" rowspan="1" class="sorting">Estado</th>
-                    <th style="width: 50px;" colspan="1" rowspan="1" class="sorting">Grado</th>
+                    <th style="width: 85px;" colspan="1" rowspan="1" class="sorting">Grado</th>
+                    <th style="width: 70px;" colspan="1" rowspan="1" class="sorting">Estado</th>
                     <th style="width: 50px;" colspan="1" rowspan="1" class="sorting"></th>
                   </tr>
                 </thead>
                 <tbody>
+                <% @student.each do |student| %>
                   <tr class="odd" role="row">
-                    <td>48394849</td>
-                    <td>Apellido, Nombres</td>
-                    <td>Matriculado</td>
-                    <td>3 Primaria</td>
-                    <td></td>
+                    <td><%= student.dni%></td>
+                    <td><%= student.full_name%></td>
+                    <td><%= student.current_period_enrollment.try(:section).try(:route_name)%></td>
+                    <td>
+                    <%if student.current_period_enrollment%>
+                      <%= student.current_period_enrollment.state == 0 ? "Reservado" : "Matriculado"%>
+                    <%else%>
+                      -
+                    <%end%>
+                    </td>
+                    <td>
+                    <%if student.current_period_enrollment%>
+                      -
+                    <%else%>
+                      <%= link_to "Reservar", new_enrollment_path(student_id: student.id), class: "btn btn-primary btn-sm"%>
+                    <%end%>
+                    </td>
                   </tr>
-                  <tr class="odd" role="row">
-                    <td>48394832</td>
-                    <td>Apellido, Nombres2</td>
-                    <td>-</td>
-                    <td>6 Primaria</td>
-                    <td><button type="submit" class="btn btn-primary btn-sm">Reservar</button></td>
-                  </tr>
+                <%end%>
                 </tbody>
               </table>
             </div>

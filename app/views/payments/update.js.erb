@@ -1,0 +1,8 @@
+<%if @payment.errors.any?%>
+	$(".modal-content").html("<%=j render('form')%>");
+<%else%>
+  window.location.href='<%=j payments_path %>';
+	//$(".result_ajax").html("<%#=j render('requirements/index')%>");
+  //$(".modal-content").html("");
+  //$("#myModal").modal('hide');
+<%end%>

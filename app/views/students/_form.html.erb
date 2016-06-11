@@ -6,116 +6,30 @@
         <div class="panel panel-default">
           <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
-            <form method="get" class="form-horizontal">
-              <div class="form-group">
-                <label class="col-sm-2 control-label">DNI</label>
-                <div class="col-sm-10 input-group">
-                  <input class="form-control" type="text">
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                  </span>
+            <%= simple_form_for @guardian, url: students_path, wrapper: :horizontal_form, html:{class: "form-horizontal"}  do |f| %>
+              <%= f.input :dni, wrapper: "horizontal_dni_search" do %>
+                <%= f.input_field :dni, class: "form-control input-sm"%>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></button>
+                </span>
+              <%end%>
+              <%= f.input :p_lastname %>
+              <%= f.input :m_lastname %>
+              <%= f.input :first_name %>
+              <%= f.input :email %>
+              <%= f.input :address%>
+              <%= f.input :phone%>
+              <%= f.simple_fields_for :students do |s|%>
+                <%= render 'student_fields', f: s%>
+              <%end%>
+              <div class="form-group form-button">
+                <div class="col-sm-9 col-sm-offset-3">
+                  <%= link_to_add_fields "Agregar Alumno", f, :students %>
+                  <%= f.submit 'Guardar', class: "btn btn-sm btn-success" %>
+                  <%= link_to 'Cancelar',root_path, class: "btn btn-sm btn-danger" %>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Apellido Paterno</label>
-                <div class="col-sm-10">
-                  <input class="form-control" type="text">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Apellido Materno</label>
-                <div class="col-sm-10">
-                  <input class="form-control" type="text">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Nombres</label>
-                <div class="col-sm-10">
-                  <input class="form-control" type="text">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Correo electronico</label>
-                <div class="col-sm-10">
-                  <input class="form-control" type="text">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Dirección</label>
-                <div class="col-sm-10">
-                  <input class="form-control" type="text">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Telefono</label>
-                <div class="col-sm-10">
-                  <input class="form-control" type="text">
-                </div>
-              </div>
-            </form>
-            </div>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="headingTwo">
-            <h4 class="panel-title">
-              <a class="collapsed" role="button" aria-controls="collapseTwo">
-                Datos del alumno
-              </a>
-            </h4>
-          </div>
-          <div id="collapseTwo" class="panel-collapse" aria-labelledby="headingTwo">
-            <div class="panel-body">
-              <form method="get" class="form-horizontal">
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">DNI</label>
-                  <div class="col-sm-10">
-                    <input class="form-control" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Apellido Paterno</label>
-                  <div class="col-sm-10">
-                    <input class="form-control" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Apellido Materno</label>
-                  <div class="col-sm-10">
-                    <input class="form-control" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Nombres</label>
-                  <div class="col-sm-10">
-                    <input class="form-control" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Correo electronico</label>
-                  <div class="col-sm-10">
-                    <input class="form-control" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Dirección</label>
-                  <div class="col-sm-10">
-                    <input class="form-control" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Telefono</label>
-                  <div class="col-sm-10">
-                    <input class="form-control" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-sm-8 col-sm-offset-2">
-                    <button class="btn btn-default" type="submit">Cancelar</button>
-                    <button class="btn btn-primary" type="submit">Guardar cambios</button>
-                  </div>
-                </div>
-              </form>
+            <% end %>
             </div>
           </div>
         </div>

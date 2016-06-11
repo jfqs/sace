@@ -7,7 +7,7 @@
       <%end%>
     </li>
     <!--nuevo - inicio-->
-  <%if policy(Student).create? and policy(Enrollment).update?%>
+  <%if policy(Student).create? and policy(Enrollment).create?%>
     <li class="ts-label">Alumno</li>
     <li>
     <%= link_to new_student_path do%>
@@ -29,14 +29,14 @@
     <%end%>
     </li>
     <li>
-    <%= link_to payments_assign_path do%>
+    <%= link_to new_assign_payments_path do%>
       <i class="fa fa-money"></i> Registrar concepto de pago
     <%end%>
     </li>
     <%end%>
     <%if policy(Payment).pending?%>
     <li>
-    <%= link_to payments_pending_path do%>
+    <%= link_to pending_payments_path do%>
       <i class="fa fa-dollar"></i> Pagos pendientes
     <%end%>
     </li>
@@ -60,7 +60,7 @@
     <%end%>
     <%if policy(StudentGrade).report_card?%>
     <li>
-    <%= link_to student_grades_report_card_path do%>
+    <%= link_to report_card_student_grades_path do%>
       <i class="fa fa-graduation-cap"></i> Reporte notas
     <%end%>
     </li>
@@ -69,7 +69,7 @@
   <%if policy(StudentGrade).create?%>
     <li class="ts-label">Notas</li>
     <li>
-    <%= link_to student_grades_course_grades_path do%>
+    <%= link_to course_grades_student_grades_path do%>
       <i class="fa fa-sticky-note-o"></i> Registrar notas
     <%end%>
     </li>
