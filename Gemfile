@@ -20,8 +20,11 @@ end
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'faker'
 end
 
 gem 'devise'
 gem 'simple_form'
 gem 'pundit'
+gem "paperclip"
+gem "remotipart"

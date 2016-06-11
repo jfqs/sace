@@ -20,3 +20,34 @@
 //= require js/fileinput
 //= require js/chartData
 //= require js/main
+
+jQuery(function() {
+  $('form').on('click', '.remove_fields', function(event) {
+    $(this).parent().parent().prev('input[type=hidden]').val('1');
+    $(this).closest('.panel-default').hide();
+    return event.preventDefault();
+  });
+
+  $('form').on('click', '.add_fields', function(event) {
+    var regexp, time;
+    time = new Date().getTime();
+    regexp = new RegExp($(this).data('id'), 'g');
+    $(".form-button").before($(this).data('fields').replace(regexp, time)
+      /*'\
+      <div class="panel panel-default">\
+        <div class="panel-heading" role="tab" id="headingTwo">\
+          <h4 class="panel-title">\
+            <a class="collapsed" role="button" aria-controls="collapseTwo">\
+              Datos del alumno\
+            </a>\
+          </h4>\
+        </div>\
+        <div id="collapseTwo" class="panel-collapse" aria-labelledby="headingTwo">\
+          <div class="panel-body">'+ $(this).data('fields').replace(regexp, time) + '\
+          </div>\
+        </div>\
+      </div>'
+      */);
+    return event.preventDefault();
+  });
+});

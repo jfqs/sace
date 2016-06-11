@@ -2,21 +2,31 @@ Rails.application.routes.draw do
   devise_for :users
 
   root 'welcome#index'
-  resources :enrollments
-  resources :students
-  get 'students/search'
 
-  get 'payments/assign'
-  get 'payments/pending'
-  resources :payments
+  get 'maintenances/upload'
+  get 'education_degrees/search'
+  get 'sections/search'
+
+  resources :enrollments
+
+  resources :students do
+    get 'search', on: :collection
+  end
+
+  resources :payments do
+    get 'new_assign', on: :collection
+    get 'pending', on: :collection
+    post 'assign', on: :collection
+  end
+
   resources :payment_types
 
   resources :courses
-  get 'student_grades/course_grades'
-  get 'student_grades/report_card'
-  resources :student_grades
 
-  get 'maintenances/upload'
+  resources :student_grades do
+    get 'course_grades', on: :collection
+    get 'report_card', on: :collection
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

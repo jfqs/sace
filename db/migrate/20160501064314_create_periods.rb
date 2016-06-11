@@ -3,7 +3,7 @@ class CreatePeriods < ActiveRecord::Migration
     create_table :periods do |t|
       t.integer :year
       t.integer :bimester
-
+      t.integer :state, default: 0
       t.timestamps null: false
     end
   end

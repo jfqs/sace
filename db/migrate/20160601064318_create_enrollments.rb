@@ -1,8 +1,10 @@
 class CreateEnrollments < ActiveRecord::Migration
   def change
     create_table :enrollments do |t|
-      t.references :student, references: :user
+      t.references :period, index: true, foreign_key: true
       t.references :secretary, references: :user
+      t.references :section, index: true, foreign_key: true
+      t.references :student, references: :user
       t.integer :state
       t.timestamps null: false
     end

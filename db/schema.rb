@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601064316) do
+ActiveRecord::Schema.define(version: 20160601064318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,12 +38,17 @@ ActiveRecord::Schema.define(version: 20160601064316) do
   end
 
   create_table "enrollments", force: :cascade do |t|
-    t.integer  "student_id"
+    t.integer  "period_id"
     t.integer  "secretary_id"
+    t.integer  "section_id"
+    t.integer  "student_id"
     t.integer  "state"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  add_index "enrollments", ["period_id"], name: "index_enrollments_on_period_id", using: :btree
+  add_index "enrollments", ["section_id"], name: "index_enrollments_on_section_id", using: :btree
 
   create_table "grade_types", force: :cascade do |t|
     t.string   "name"
@@ -59,8 +64,9 @@ ActiveRecord::Schema.define(version: 20160601064316) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.integer  "guardian_id"
+    t.integer  "student_id"
     t.integer  "payment_type_id"
+    t.integer  "period_id"
     t.integer  "amount"
     t.date     "op_date"
     t.string   "op_code"
@@ -69,18 +75,21 @@ ActiveRecord::Schema.define(version: 20160601064316) do
   end
 
   add_index "payments", ["payment_type_id"], name: "index_payments_on_payment_type_id", using: :btree
+  add_index "payments", ["period_id"], name: "index_payments_on_period_id", using: :btree
 
   create_table "periods", force: :cascade do |t|
     t.integer  "year"
     t.integer  "bimester"
+    t.integer  "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "programmed_sections", force: :cascade do |t|
-    t.integer  "teacher_id"
-    t.integer  "course_id"
+    t.integer  "period_id"
     t.integer  "section_id"
+    t.integer  "course_id"
+    t.integer  "teacher_id"
     t.string   "desc"
     t.integer  "day"
     t.integer  "start_time"
@@ -90,6 +99,7 @@ ActiveRecord::Schema.define(version: 20160601064316) do
   end
 
   add_index "programmed_sections", ["course_id"], name: "index_programmed_sections_on_course_id", using: :btree
+  add_index "programmed_sections", ["period_id"], name: "index_programmed_sections_on_period_id", using: :btree
   add_index "programmed_sections", ["section_id"], name: "index_programmed_sections_on_section_id", using: :btree
   add_index "programmed_sections", ["teacher_id"], name: "index_programmed_sections_on_teacher_id", using: :btree
 
@@ -128,10 +138,13 @@ ActiveRecord::Schema.define(version: 20160601064316) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.integer  "guardian_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "dni"
     t.string   "role"
+    t.string   "address"
+    t.string   "phone"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
@@ -140,11 +153,15 @@ ActiveRecord::Schema.define(version: 20160601064316) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "education_degrees", "education_levels"
+  add_foreign_key "enrollments", "periods"
+  add_foreign_key "enrollments", "sections"
   add_foreign_key "enrollments", "users", column: "secretary_id"
   add_foreign_key "enrollments", "users", column: "student_id"
   add_foreign_key "payments", "payment_types"
-  add_foreign_key "payments", "users", column: "guardian_id"
+  add_foreign_key "payments", "periods"
+  add_foreign_key "payments", "users", column: "student_id"
   add_foreign_key "programmed_sections", "courses"
+  add_foreign_key "programmed_sections", "periods"
   add_foreign_key "programmed_sections", "sections"
   add_foreign_key "programmed_sections", "users", column: "teacher_id"
   add_foreign_key "sections", "education_degrees"
@@ -152,4 +169,5 @@ ActiveRecord::Schema.define(version: 20160601064316) do
   add_foreign_key "student_grades", "periods"
   add_foreign_key "student_grades", "programmed_sections"
   add_foreign_key "student_grades", "users", column: "student_id"
+  add_foreign_key "users", "users", column: "guardian_id"
 end
