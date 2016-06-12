@@ -19,7 +19,7 @@ Admin.create!(email: "admin@sace.com", password: "12345678")
     m_lastname: Faker::Name.last_name,
     first_name: Faker::Name.first_name,
     email: "secretaria-#{i}@gmail.com",
-    password: "12345678"
+    password: "12345678",
     address: "dirtest-sec",
     phone: "11111"
   })
