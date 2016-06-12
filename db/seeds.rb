@@ -103,7 +103,7 @@ Section.all.each do |section|
     ProgrammedSection.create(period_id: 6,
       section_id: section.id,
       course_id: course.id,
-      teacher_id: Teacher.find_by_email("profesor-#{course.id}@gmail.com").id)
+      teacher_id: Teacher.find_by_email("profesor-#{course.id-1}@gmail.com").id)
   end
 end
 puts "Creando tipo de nota"
