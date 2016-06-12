@@ -97,12 +97,13 @@ puts "Creando cursos"
   Course.create(name: c)
 end
 
+puts "Asignando secciones"
 Section.all.each do |section|
   Course.all.each do |course|
     ProgrammedSection.create(period_id: 6,
       section_id: section.id,
       course_id: course.id,
-      teacher_id: Teacher.find_by_email("profesor-#{i}@gmail.com").id)
+      teacher_id: Teacher.find_by_email("profesor-#{course.id}@gmail.com").id)
   end
 end
 puts "Creando tipo de nota"
