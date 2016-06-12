@@ -10,7 +10,16 @@ Period.create([{year: 2015}, {year: 2015, bimester: 1}, {year: 2015, bimester: 2
 puts "Created periods"
 
 puts "Creating admin"
-Admin.create!(email: "admin@sace.com", password: "12345678")
+Admin.create!({
+    dni: Faker::Number.number(8),
+    p_lastname: "admin",
+    m_lastname: "admin",
+    first_name: "admin",
+    email: "admin@sace.com",
+    password: "adminadmin",
+    address: "dirtest-sec",
+    phone: "11111"
+  })
 
 3.times do |i|
   Secretary.create!({
