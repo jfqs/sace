@@ -22,7 +22,7 @@ group :development do
   gem 'spring'
   gem 'faker'
 end
-gem 'rails_12factor', group: :production
+
 gem 'devise'
 gem 'simple_form'
 gem 'pundit'
